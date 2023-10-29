@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Web Components, Practical Work 1</title>
+    <link rel="shortcut icon" type="image/png" href="https://img.icons8.com/emoji/32/hibiscus.png">
+    <style>
+        body {
+            background: #202124;
+            color: #bdc1c6;
+            font-family: Open Sans, Noto Sans, Roboto;
+            margin: auto;
+            padding-top: 20px;
+            width: 70%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+    <template id="contact-card">
+        <style>
+            .contact-card {
+                background-color: #6c757d;
+                margin-bottom: 1rem;
+                max-width: 35rem;
+                border: 1px solid rgba(0, 0, 0, .125);
+                border-radius: .25rem;
+                display: flex;
+            }
+            .params {
+                padding: 1rem 3rem;
+                width: 66%;
+            }
+            .name {
+                color: rgba(255, 228, 196, 0.84);
+            }
+            .email {
+                color: rgb(160, 175, 189);
+            }
+            .img {
+                max-width: 300px;
+            }
+        </style>
+        <div class="contact-card">
+            <img class="img" src="">
+            <div class="params">
+                <h2 class="name"></h2>
+                <p class="email"></p>
+                <p class="tel"></p>
+            </div>
+        </div>
+    </template>
+
+    <script>
+        const root = document.getElementById('root')
+        const tmp = document.getElementById('contact-card')
+        const arr = [
+            { name: 'Mike', email: 'mike@mail.com', tel: '8 900 670 77 77', img: 'm2.png' },
+            { name: 'Sophia', email: 'sophia@mail.com', tel: '8 700 890 88 88', img: 'w3.png' },
+            { name: 'Jessica', email: 'jessica@mail.com', tel: '8 999 270 55 55', img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Jessica_Marie_Alba%2C_TechCrunch_Disrupt_NY_2016_-_Day_3_%28cropped%29.jpg/500px-Jessica_Marie_Alba%2C_TechCrunch_Disrupt_NY_2016_-_Day_3_%28cropped%29.jpg' },
+        ];
+
+        for (let n = 0; n < 3; n++) {
+            addContent(n, tmp, root, arr)
+            // addContentShadow(n, tmp, root, arr)
+        }
+
+        function addContent(n, tmp, root, arr) {
+            const ct = tmp.content.cloneNode(true)
+            ct.querySelector('.name').textContent = arr[n].name
+            ct.querySelector('.email').textContent = arr[n].email
+            ct.querySelector('.tel').textContent = arr[n].tel
+            ct.querySelector('.img').src = arr[n].img
+            root.append(ct)
+        }
+
+        function addContentShadow(n, tmp, root, arr) {
+            let elem = document.createElement('div')
+            elem.attachShadow({ mode: 'open' })
+            elem.shadowRoot.append(tmp.content.cloneNode(true))
+            elem.shadowRoot.querySelector('.name').textContent = arr[n].name
+            elem.shadowRoot.querySelector('.email').textContent = arr[n].email
+            elem.shadowRoot.querySelector('.tel').textContent = arr[n].tel
+            elem.shadowRoot.querySelector('.img').src = arr[n].img
+            root.append(elem)
+        }
+    </script>
+</body>
+
+</html>
